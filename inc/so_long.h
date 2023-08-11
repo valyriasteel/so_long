@@ -32,11 +32,29 @@ typedef struct s_keys
 typedef struct s_imgs
 {
 	void	*player;
+	int		*player_addr;
 	void	*wall;
+	void	*wall_addr;
 	void	*exit;
+	int		*exit_addr;
 	void	*coin;
+	int		*coin_addr;
 	void	*bg;
+	int		*bg_addr;
 }	t_imgs;
+
+typedef struct s_img
+{
+	void	*img;
+	int		*addr;
+}	t_img;
+
+typedef struct s_vmap
+{
+	char	**map;
+	int		coins;
+	bool	player;
+}	t_vmap;
 
 typedef struct s_game
 {
@@ -47,10 +65,14 @@ typedef struct s_game
 	int			map_height;
 	int			obj_count;
 	int			player_speed;
+	int			coin_count;
+	int			total_movement;
 	t_imgs		imgs;
 	t_keys		keys;
 	t_object	*all_objects;
 	t_object	player;
+	t_img		img;
+	t_vmap		vmap;
 }	t_game;
 
 int		ft_strlen(char *str);
@@ -62,5 +84,14 @@ int		key_down(int code, t_game *game);
 int		key_up(int code, t_game *game);
 int		ft_arrlen(char **arrays);
 int		update(t_game *game);
+void	print_collisions(t_game *game);
+bool	collision_controller(t_game *game);
+void	print_map(t_game *game, int x, int y);
+void	print_obj(t_game *game, t_object *object);
+void	print_background(t_game *game, int x, int y);
+void	sprite_to_addr(t_game *game, t_object *obj, int *addr);
+bool	check_map(t_game *game, int x, int y);
+void	create_objs(t_game *game, int x, int y);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

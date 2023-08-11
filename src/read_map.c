@@ -1,14 +1,6 @@
 #include "../inc/so_long.h"
 
-void	print_m(t_game *game) // kaldirilacak
-{
-	for (int i = 0; game->map[i]; i++)
-	{
-		printf("%s\n", game->map[i]);
-	}
-}
-
-char	*ft_strjoin(char *str1, char *str2)
+static char	*ft_strjoin(char *str1, char *str2)
 {
 	int		i;
 	int		idx;
@@ -28,7 +20,19 @@ char	*ft_strjoin(char *str1, char *str2)
 	return (res);
 }
 
-bool	create_objs(t_game *game, int x, int y)
+static void	find_player(t_game *game, int x, int y)
+{
+	if (game->map[y][x] == 'P')
+	{
+		game->player.x = x * SIZE;
+		game->player.y = y * SIZE;
+		game->player.width = 25;
+		game->player.height = 40;
+		game->player.type = 'P';
+	}
+}
+
+void	create_objs(t_game *game, int x, int y)
 {
 	int	idx;
 
@@ -48,17 +52,10 @@ bool	create_objs(t_game *game, int x, int y)
 				game->all_objects[idx].is_active = true;
 				game->all_objects[idx++].type = game->map[y][x];
 			}
-			if (game->map[y][x] == 'P')
-			{
-				game->player.x = x * SIZE;
-				game->player.y = y * SIZE;
-				game->player.width = 50;
-				game->player.height = 50;
-				game->player.type = 'P';
-			}
+			else
+				find_player(game, x, y);
 		}
 	}
-	return(true);
 }
 
 bool	read_map(t_game *game, char *map_path)
@@ -82,5 +79,5 @@ bool	read_map(t_game *game, char *map_path)
 	game->map_height = ft_arrlen(game->map);
 	free(map);
 	close(fd);
-	return (create_objs(game, 0, -1));
+	return (check_map(game, -1, -1));
 }

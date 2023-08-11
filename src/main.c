@@ -11,6 +11,7 @@ int main(int ac, char **av)
 		return (1);
 	}
 	init(&game, ft_strlen(game.map[0]) * SIZE, ft_arrlen(game.map) * SIZE);
+	create_objs(&game, 0, -1);
 	mlx_loop_hook(game.mlx, update, &game);
 	mlx_loop(game.mlx);
 }

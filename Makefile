@@ -1,7 +1,7 @@
 NAME = so_long
 FLAGS = -framework OpenGL -framework AppKit
 CC = gcc -g
-SRCS = ./src/main.c ./src/init.c src/read_map.c src/utils.c src/mlx_events.c src/update.c
+SRCS = ./src/main.c ./src/init.c src/read_map.c src/utils.c src/mlx_events.c src/update.c src/collision.c src/print.c src/check_map.c src/utils2.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
