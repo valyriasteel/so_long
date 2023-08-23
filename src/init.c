@@ -34,7 +34,7 @@ void	init(t_game *game, int width, int height)
 	game->keys.a = false;
 	game->keys.s = false;
 	game->keys.d = false;
-	game->player_speed = 10;
+	game->player_speed = 5;
 	game->total_movement = 0;
 	mlx_hook(game->win, 2, 1L << 0, key_down, game);
 	mlx_hook(game->win, 3, 1L << 1, key_up, game);
